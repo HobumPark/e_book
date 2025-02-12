@@ -1,0 +1,59 @@
+/* page4 */
+#page4-inner{
+    position: relative;
+}
+
+#page4-inner>img{
+    display: block;
+    border-radius: 10px;
+    position: absolute;
+    left:10px;
+    bottom:50px;
+}
+/* page7 */
+#page7-inner{
+    position: relative;
+}
+iframe{
+    position: absolute;
+    left:10px;
+    bottom: 10px;
+}
+
+/* page8 */
+#page8-inner{
+    position: relative;
+}
+
+#page8-inner>img{
+    display: block;
+    border-radius: 10px;
+    position: absolute;
+    width:260px;
+    height:160px;
+    left:150px;
+}
+#page8-1-img{
+    top:10px;
+}
+#page8-2-img{
+    top:200px;
+}
+#page8-3-img{
+    top:400px;
+}
+/* page12 */
+#page12-inner{
+    position: relative;
+}
+#page12-inner>img{
+    display: block;
+    border-radius: 10px;
+    position: absolute;
+    width:260px;
+}
+
+#page12-img{
+    top:270px;
+    left:50px;
+}

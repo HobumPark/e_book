@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel= "stylesheet" type="text/css" href="./css/style.css">
+    <link rel= "stylesheet" type="text/css" href="./css/index.css">
+    <title>ebook 프로젝트</title>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/app.js"></script>
+    <script type="text/javascript"></script>
+    <script>
+     
+        function nextPage(){
+            window.location.href='./page2.html'
+        }
+    </script>
+</head>
+<body>
+    <div id="book-shelf">
+        <h1>E-Book</h1>
+        <div id="book-list">
+            <div id="book1">
+                <a href="./book/my_essay.html" title="자작에세이">
+                    <img src="./images/my_essay.jpg"/>
+                </a>
+            </div>
+            <div id="book2">
+                <a href="./book/your_essay.html" title="당신의에세이"> 
+                    <img src="./images/your_essay.jpg"/>
+                </a>
+            </div>
+            <div id="book3">
+                <a href="./book/showpen.html" title="쇼펜하우어">
+                    <img src="./images/showpen.jpg"/>
+                </a>
+            </div>
+            <div id="book4">
+                <a href="./book/niche.html" title="니체">
+                    <img src="./images/niche.jpg"/>
+                </a>
+            </div>
+        </div>
+        <div id="book-support">
+
+        </div>
+        <div id="book-list">
+            <div id="book5">
+                <a href="./book/bubryun.html" title="법륜스님">
+                    <img src="./images/bubryun.jpg"/>
+                </a>
+            </div>
+            <div id="book6">
+                <a href="./book/kaiji.html" title="카이지">
+                    <img src="./images/kaiji.png"/>
+                </a>
+            </div>
+            <div id="book7">
+                <a href="./book/book1.html" title="사피엔스">
+                    <img src="./images/book1.jpg"/>
+                </a>
+            </div>
+            <div id="book8">
+                <a href="./book/book2.html" title="니체">
+                    <img src="./images/book2.jpg"/>
+                </a>
+            </div>
+        </div>
+        <div id="book-support">
+
+        </div>
+        <button onclick="nextPage()" id="next-btn">다음</button>
+    
+    </div>
+    
+</body>
+
+</html>

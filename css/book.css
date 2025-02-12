@@ -1,0 +1,66 @@
+
+    body{
+        background-color: burlywood;
+    }
+    /*배경음악*/
+    #background-music{
+        width:400px;
+        height:50px;
+        border-radius: 10px;
+        background-color: #fff;
+        margin:0 auto;
+        padding-top:15px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    #background-music>button{
+        cursor: pointer;
+    }
+
+    /*음악정보*/
+    #music-info{
+        margin-left:10px;
+        margin-top: 5px;
+        /* background-color: paleturquoise; */
+    }
+    #book{
+        width:1200px;
+        height:600px;
+        margin:10px auto;
+        border-radius:10px;
+    }
+
+    #book .page{
+        width:600px;
+        height:600px;
+        border-radius:10px;
+        background-color: honeydew;
+        border: 1px solid black;
+        box-sizing: border-box;
+        margin-right:1px;
+    }
+
+
+    #book .page>img{
+        width:600px;
+        height:600px;
+        border-radius:10px;
+    }
+
+    #book .page>span{
+        display:block;
+        width:95%;
+        height:95%;
+        margin:10px auto;
+        line-height: 1.6;
+        border-radius:10px;
+        background-color: cornflowerblue;
+        padding-left:10px;
+        box-sizing: border-box;
+    }
+
+    #contents{
+        padding:5px;
+        box-sizing: border-box;
+    }

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel= "stylesheet" type="text/css" href="../css/book.css">
+    <link rel= "stylesheet" type="text/css" href="../css/my_essay/my_essay.css">
+    <title>책</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/turn.min.js"></script>
+    
+    <script type="text/javascript">
+    var audio=null;
+    var isPlaying=false;
+
+    $(document).ready(function(){
+        //$("#book").turn();
+        //data_load("my_essay.json")
+        $("#book").turn({
+        when: {
+                turned: function (event, page, view) {
+                    data_load("my_essay.json")
+                    
+                }
+            }
+        });
+
+        audio=new Audio()
+        audio.src='../audio/쇼팽 녹턴.mp4'
+    })
+
+    function playPause(){
+        if(isPlaying==false){
+            audio.play()
+            isPlaying=true
+            $("#play-btn").text('중지')
+        }else{
+            audio.pause()
+            isPlaying=false
+            $("#play-btn").text('재생')
+        }
+        
+    }
+
+    function data_load(file){
+
+        $.getJSON(`./data/${file}`, function(data){
+            console.log(data); 
+            contents1Display(data.contents1)
+            contents2Display(data.contents2)
+            contents3Display(data.contents3)
+            //
+        }).fail(function(){
+            console.log("An error has occurred.");
+        });
+    }
+    
+    function contents1Display(data){
+        //page1
+        const page_title=data.title
+        console.log(page_title)
+
+        $("#page1-inner>h1").text(page_title)
+        const page1=data.contents.page1;
+        var full_string="";
+        for(var i=0; i< page1.length; i++){
+            console.log(page1[i])
+            full_string += page1[i]+"<br>"
+        }
+        $("#page1-inner>#contents").html(full_string)
+        //page2
+        const page2=data.contents.page2;
+        var full_string="";
+        for(var i=0; i< page2.length; i++){
+            console.log(page2[i])
+            full_string += page2[i]+"<br>"
+        }
+        $("#page2-inner>#contents").html(full_string)
+        //page3
+        const page3=data.contents.page3;
+        var full_string="";
+        for(var i=0; i< page3.length; i++){
+            console.log(page3[i])
+            full_string += page3[i]+"<br>"
+        }
+        $("#page3-inner>#contents").html(full_string)
+        //page4
+        const page4=data.contents.page4;
+        var full_string="";
+        for(var i=0; i< page4.length; i++){
+            console.log(page4[i])
+            full_string += page4[i]+"<br>"
+        }
+        $("#page4-inner>#contents").html(full_string)
+    }
+    function contents2Display(data){
+        //page5
+        const page_title=data.title
+        console.log(page_title)
+
+        $("#page5-inner>h1").text(page_title)
+        const page5=data.contents.page5;
+        var full_string="";
+        for(var i=0; i< page5.length; i++){
+            console.log(page5[i])
+            full_string += page5[i]+"<br>"
+        }
+        $("#page5-inner>#contents").html(full_string)
+      
+        //page6
+        const page6=data.contents.page6;
+        full_string="";
+        for(var i=0; i< page6.length; i++){
+            console.log(page6[i])
+            full_string += page6[i]+"<br>"
+        }
+        $("#page6-inner>#contents").html(full_string)
+
+        //page7
+        const page7=data.contents.page7;
+        full_string="";
+        for(var i=0; i< page7.length; i++){
+            console.log(page7[i])
+            full_string += page7[i]+"<br>"
+        }
+        $("#page7-inner>#contents").html(full_string)
+    }    
+
+    function contents3Display(data){
+        //page9
+        const page_title=data.title
+        console.log(page_title)
+
+        $("#page9-inner>h1").text(page_title)
+        const page9=data.contents.page9;
+        var full_string="";
+        for(var i=0; i< page9.length; i++){
+            console.log(page9[i])
+            full_string += page9[i]+"<br>"
+        }
+        $("#page9-inner>#contents").html(full_string)
+
+        const page10=data.contents.page10;
+        var full_string="";
+        for(var i=0; i< page10.length; i++){
+            console.log(page10[i])
+            full_string += page10[i]+"<br>"
+        }
+        $("#page10-inner>#contents").html(full_string)
+
+        const page11=data.contents.page11;
+        var full_string="";
+        for(var i=0; i< page11.length; i++){
+            console.log(page11[i])
+            full_string += page11[i]+"<br>"
+        }
+        $("#page11-inner>#contents").html(full_string)
+
+        const page12=data.contents.page12;
+        var full_string="";
+        for(var i=0; i< page12.length; i++){
+            console.log(page12[i])
+            full_string += page12[i]+"<br>"
+        }
+        $("#page12-inner>#contents").html(full_string)
+    }    
+    </script>
+</head>
+<body>
+    <div id="background-music">
+        <button>이전</button>
+        <button onClick="playPause()" id="play-btn">재생</button>
+        <button>다음</button>
+        <span id="music-info">쇼팽 녹턴</span>
+    </div>
+    <div id="book">
+        <div>
+            <img src="../images/my_essay.jpg"/>
+        </div>
+        <div id="page1">
+            <span id="page1-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page2">
+            <span id="page2-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page3">
+            <span id="page3-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page4">
+            <span id="page4-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+                <img src="../images/my_essay/my_essay1_page1.jpg" alt="">
+            </span>
+        </div>
+        <div id="page5">
+            <span id="page5-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page6">
+            <span id="page6-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page7">
+            <span id="page7-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+                <iframe width="500" height="250" 
+                src="https://www.youtube.com/embed/6d9EMhmbB4c?si=miW2VTWYXR-cF2cR&amp;start=624" 
+                title="YouTube video player" 
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </span>
+        </div>
+        <div id="page8">
+            <span id="page8-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+                <img src="../images/my_essay/my_essay1_page8-1.jpg" alt="" id="page8-1-img">
+                <img src="../images/my_essay/my_essay1_page8-2.jpg" alt="" id="page8-2-img">
+                <img src="../images/my_essay/my_essay1_page8-3.jpg" alt="" id="page8-3-img">
+            </span>
+        </div>
+        <div id="page9">
+            <span id="page9-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page10">
+            <span id="page10-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page11">
+            <span id="page11-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page12">
+            <span id="page12-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+                <img src="../images/my_essay/my_essay1_page12.png" alt="" id="page12-img">
+            </span>
+        </div>
+        <div id="page13">
+            <span id="page13-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+        <div id="page14">
+            <span id="page14-inner">
+                <h1 id="title"></h1>
+                <span id="contents"></span>
+            </span>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel= "stylesheet" type="text/css" href="../css/book.css">
+    
+    <title>책</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/turn.min.js"></script>
+    <script src="./data/book1_data.json" type="text/javascript"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#book").turn();
+        data_load("book9_data.json")
+    })
+
+    function data_load(file){
+
+        $.getJSON(`./data/${file}`, function(data){
+            console.log(data); 
+            console.log(data.page1); 
+            console.log(data.page2); 
+            const page1=data.page1;
+            const page2=data.page2;
+            var full_string="";
+            for(var i=0; i<page1.length; i++){
+                full_string+= page1[i]
+            }
+            $("#page1>span").text(full_string)
+            
+            full_string="";
+            for(var i=0; i<page1.length; i++){
+                full_string+= page1[i]
+            } 
+            $("#page2>span").text(page2)
+        }).fail(function(){
+            console.log("An error has occurred.");
+        });
+    }
+        
+    </script>
+</head>
+<body>
+    <div id="book">
+        <div>
+            <img src="../images/book9.jpg"/>
+        </div>
+        <div id="page1">
+            <span></span>
+        </div>
+        <div id="page2">
+            <span></span>
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</body>
+
+</html>
