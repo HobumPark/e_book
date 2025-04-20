@@ -28,6 +28,10 @@
         audio.src='../audio/쇼팽 녹턴.mp4'
     })
 
+    function moveHome(){
+        window.location.href='/e_book/index.html'
+    }
+
     function playPause(){
         if(isPlaying==false){
             audio.play()
@@ -167,6 +171,7 @@
 </head>
 <body>
     <div id="background-music">
+        <button onClick="moveHome()">홈</button>
         <button>이전</button>
         <button onClick="playPause()" id="play-btn">재생</button>
         <button>다음</button>

@@ -2,93 +2,122 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <link rel= "stylesheet" type="text/css" href="../css/book.css">
-    
+    <link rel="stylesheet" type="text/css" href="../css/book.css">
     <title>책</title>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/turn.min.js"></script>
     <script type="text/javascript">
-
-    $(document).ready(function(){
-
-        $("#book").turn({
-        when: {
-                turned: function (event, page, view) {
-                    data_load("showpen.json")
-                    
+        let data = null; // 전역 데이터 변수
+        let synth = null; // 음성 합성 객체
+    
+        $(document).ready(function () {
+            // 책 페이지 넘기기
+            $("#book").turn({
+                when: {
+                    turned: function (event, page, view) {
+                        // 페이지가 넘어가면 현재 페이지 상태 업데이트
+                        currentPage = page;
+                    }
                 }
+            });
+    
+            // 처음에 데이터 로드
+            data_load("showpen.json");
+        });
+    
+        function data_load(file) {
+            $.getJSON(`./data/${file}`, function (json) {
+                data = json;
+                console.log("데이터 로드 완료", data);
+                contents1Display(data.contents1);
+                contents2Display(data.contents2);
+            }).fail(function () {
+                console.log("데이터 불러오기 오류 발생");
+            });
+        }
+    
+        function contents1Display(data) {
+            $("#page1-inner>h1").text(data.title);
+            const page1 = data.contents.page1;
+            const page2 = data.contents.page2;
+            $("#page1-inner>#contents").html(generateTextWithSpeaker(page1));
+            $("#page2-inner>#contents").html(generateTextWithSpeaker(page2));
+        }
+    
+        function contents2Display(data) {
+            $("#page3-inner>h1").text(data.title);
+            const page3 = data.contents.page3;
+            const page4 = data.contents.page4;
+            $("#page3-inner>#contents").html(generateTextWithSpeaker(page3));
+            $("#page4-inner>#contents").html(generateTextWithSpeaker(page4));
+        }
+    
+        // 텍스트 라인에 스피커 아이콘 추가
+        function generateTextWithSpeaker(lines) {
+            return lines.map((line, index) => {
+                return `<div class="text-line" data-index="${index}">
+                            ${line} <span class="speaker-icon" data-index="${index}">🔊</span>
+                        </div>`;
+            }).join("<br>");
+        }
+    
+        // 오디오 북 읽기 시작
+        function startReading(text) {
+            if (!('speechSynthesis' in window)) {
+                alert("이 브라우저는 음성 합성을 지원하지 않습니다.");
+                return;
             }
+    
+            synth = window.speechSynthesis;
+            synth.cancel(); // 이전 음성 멈추기
+    
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = "ko-KR";
+            utter.rate = 1;
+            synth.speak(utter);
+        }
+    
+        // 텍스트 라인 클릭 시 해당 텍스트 읽기
+        $(document).on('click', '.speaker-icon', function() {
+            const index = $(this).data('index');
+            let pageContents = [];
+            
+            if (index < data.contents1.contents.page1.length) {
+                pageContents = data.contents1.contents.page1;
+            } else if (index < data.contents1.contents.page1.length + data.contents1.contents.page2.length) {
+                pageContents = data.contents1.contents.page2;
+            } else if (index < data.contents1.contents.page1.length + data.contents1.contents.page2.length + data.contents2.contents.page3.length) {
+                pageContents = data.contents2.contents.page3;
+            } else {
+                pageContents = data.contents2.contents.page4;
+            }
+
+            // 해당 페이지의 텍스트를 가져와서 읽기
+            startReading(pageContents[index]);
         });
-
-    })
-
-    function data_load(file){
-
-        $.getJSON(`./data/${file}`, function(data){
-            console.log(data); 
-            contents1Display(data.contents1)
-            contents2Display(data.contents2)
-            //contents3Display(data.contents3)
-            //
-        }).fail(function(){
-            console.log("An error has occurred.");
-        });
-    }
-
-    function contents1Display(data){
-        //page1
-        const page_title=data.title
-        console.log(page_title)
-
-        $("#page1-inner>h1").text(page_title)
-        const page1=data.contents.page1;
-        var full_string="";
-        for(var i=0; i< page1.length; i++){
-            console.log(page1[i])
-            full_string += page1[i]+"<br>"
-        }
-        $("#page1-inner>#contents").html(full_string)
-        //page2
-        const page2=data.contents.page2;
-        var full_string="";
-        for(var i=0; i< page2.length; i++){
-            console.log(page2[i])
-            full_string += page2[i]+"<br>"
-        }
-        $("#page2-inner>#contents").html(full_string)
-      
-    }
-
-    function contents2Display(data){
-        //page3
-        const page_title=data.title
-        console.log(page_title)
-
-        $("#page3-inner>h1").text(page_title)
-        const page3=data.contents.page3;
-        var full_string="";
-        for(var i=0; i< page3.length; i++){
-            console.log(page3[i])
-            full_string += page3[i]+"<br>"
-        }
-        $("#page3-inner>#contents").html(full_string)
-        //page4
-        const page4=data.contents.page4;
-        var full_string="";
-        for(var i=0; i< page4.length; i++){
-            console.log(page4[i])
-            full_string += page4[i]+"<br>"
-        }
-        $("#page4-inner>#contents").html(full_string)
-      
-    }
-        
     </script>
+    <style>
+        .speaker-icon {
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 20px;
+        }
+
+        .text-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
+    <div id="controls">
+        <!-- 오디오 북 읽기 버튼은 필요없음, 각 줄에 스피커 아이콘을 클릭해서 읽기 -->
+    </div>
+
     <div id="book">
         <div>
-            <img src="../images/showpen.jpg"/>
+            <img src="../images/showpen.jpg" alt="책 표지"/>
         </div>
         <div id="page1">
             <span id="page1-inner">
@@ -114,13 +143,6 @@
                 <span id="contents"></span>
             </span>
         </div>
-        <div id="page5">
-            <span id="page5-inner">
-                <h1 id="title"></h1>
-                <span id="contents"></span>
-            </span>
-        </div>
     </div>
 </body>
-
 </html>
